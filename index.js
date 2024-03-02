@@ -37,7 +37,7 @@ const disPlayButton = (cards) => {
       }
       newButton.classList.add('bg-red-600');
 
-      fetchDataByCategories(card.category_id,sortedView);
+      fetchDataByCategories(card.category_id);
     });
 
     btnContainer.appendChild(newButton);
@@ -52,11 +52,7 @@ const fetchDataByCategories = async (categoryId,sortedView) => {
   const res = await fetch(url);
   const data = await res.json();
   const vedios = data.data;
-  disPlayCards(vedios,sortedView);
-};
-
-const disPlayCards = (vedios,sortedView) => {
-  // console.log(vedios);
+  console.log(vedios);
 
   if(sortedView){
     vedios.sort((a , b) => {
@@ -67,11 +63,15 @@ const disPlayCards = (vedios,sortedView) => {
 
       const totalViewSeconsNumber = parseFloat(totalViewsStringSecond.replace("K", '')) || 0;
 
-      return totalViewFirstNumber - totalViewSeconsNumber;
+      return totalViewSeconsNumber - totalViewFirstNumber;
 
     })
   }
+  disPlayCards(vedios);
+};
 
+const disPlayCards = (vedios) => {
+  // console.log(vedios);
 
   if(vedios.length === 0){
     errorElement.classList.remove('hidden');
